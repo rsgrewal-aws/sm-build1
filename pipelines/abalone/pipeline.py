@@ -165,6 +165,7 @@ def get_pipeline(
         py_version="py3",
         instance_type=training_instance_type,
     )
+    # -- CANNOT USE this for Sagemaker Algorithims 
     metrics_definetion = [
         {'Name': 'train:loss', 'Regex': 'loss: ([0-9\\.]+)'},
         {'Name': 'train.accuracy', 'Regex': 'accuracy: ([0-9\\.]+)'},
@@ -179,7 +180,7 @@ def get_pipeline(
         base_job_name=f"{base_job_prefix}/abalone-train",
         sagemaker_session=sagemaker_session,
         role=role,
-        metric_definitions=metrics_definetion,
+        #metric_definitions=metrics_definetion,
     )
     xgb_train.set_hyperparameters(
         objective="reg:linear",
