@@ -165,6 +165,12 @@ def get_pipeline(
         py_version="py3",
         instance_type=training_instance_type,
     )
+    metrics_definetion = [
+        {'Name': 'train:loss', 'Regex': 'loss: ([0-9\\.]+)'},
+        {'Name': 'train.accuracy', 'Regex': 'accuracy: ([0-9\\.]+)'},
+        {'Name': 'validation.loss', 'Regex': 'val_loss: ([0-9\\.]+)'},
+        {'Name': 'validation.accuracy', 'Regex': 'val_accuracy: ([0-9\\.]+)'},
+    ]
     xgb_train = Estimator(
         image_uri=image_uri,
         instance_type=training_instance_type,
@@ -173,6 +179,7 @@ def get_pipeline(
         base_job_name=f"{base_job_prefix}/abalone-train",
         sagemaker_session=sagemaker_session,
         role=role,
+        metric_definitions=metrics_definetion,
     )
     xgb_train.set_hyperparameters(
         objective="reg:linear",
