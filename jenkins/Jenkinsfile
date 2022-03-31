@@ -12,7 +12,8 @@ pipeline {
       steps {
         //sh '''pip3 install --upgrade --force-reinstall --target $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID . "awscli>1.20.30"'''
         sh '''
-        echo " Workspace:env:value is  ${env.WORKSPACE}"
+        printenv
+        echo " Workspace:env:value is  ${WORKSPACE}"
         echo "AWS version is $(aws --version)"
         echo "Env variables are location -- is $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID"
         echo "Env variable HOME is $HOME"
@@ -27,7 +28,7 @@ pipeline {
           sh '''
           export PATH="$HOME/.jenkins/workspace/$SAGEMAKER_PROJECT_NAME_ID/bin:$PATH"
           export PYTHONPATH="$HOME/.jenkins/workspace/$SAGEMAKER_PROJECT_NAME_ID:$PYTHONPATH"
-          export PYTHONPATH="${env.WORKSPACE}:$PYTHONPATH"
+          export PYTHONPATH="${WORKSPACE}:$PYTHONPATH"
           run-pipeline --module-name pipelines.abalone.pipeline \
           --role-arn ${SAGEMAKER_PIPELINE_ROLE_ARN} \
           --tags "[{\\"Key\\":\\"sagemaker:project-name\\", \\"Value\\":\\"${SAGEMAKER_PROJECT_NAME}\\"}, {\\"Key\\":\\"sagemaker:project-id\\", \\"Value\\":\\"${SAGEMAKER_PROJECT_ID}\\"}]" \
