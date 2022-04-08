@@ -22,7 +22,7 @@ pipeline {
             echo "Env Variable SAGEMAKER_PIPELINE_ROLE_ARN is $SAGEMAKER_PIPELINE_ROLE_ARN"
             echo "Env variable ARTIFACT_BUCKET is $ARTIFACT_BUCKET"
             echo "going to run pip install locally"
-            pip3 install --upgrade --force-reinstall --target $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID . "awscli>1.20.30"
+            sudo -H pip3 install awscli --upgrade --target $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID --ignore-installed six
             '''
           }
       }
