@@ -9,36 +9,47 @@ pipeline {
   }
   stages {
     stage('Build and Install') {
+      agent any
       steps {
-        //sh '''pip3 install --upgrade --force-reinstall --target $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID . "awscli>1.20.30"'''
-        sh '''
-        printenv
-        echo " Workspace:env:value is  ${WORKSPACE}"
-        echo "AWS version is $(aws --version)"
-        echo "Env variables are location -- is $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID"
-        echo "Env variable HOME is $HOME"
-        echo "Env Variable SAGEMAKER_PIPELINE_ROLE_ARN is $SAGEMAKER_PIPELINE_ROLE_ARN"
-        echo "Env variable ARTIFACT_BUCKET is $ARTIFACT_BUCKET"
-        '''
+          withEnv(["HOME=${env.WORKSPACE}"]){
+            //sh '''pip3 install --upgrade --force-reinstall --target $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID . "awscli>1.20.30"'''
+            sh '''
+            printenv
+            echo " Workspace:env:value is  ${WORKSPACE}"
+            echo "AWS version is $(aws --version)"
+            echo "Env variables are location -- is $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID"
+            echo "Env variable HOME is $HOME"
+            echo "Env Variable SAGEMAKER_PIPELINE_ROLE_ARN is $SAGEMAKER_PIPELINE_ROLE_ARN"
+            echo "Env variable ARTIFACT_BUCKET is $ARTIFACT_BUCKET"
+            echo "going to run pip install locally"
+            pip3 install --upgrade --force-reinstall --target $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID . "awscli>1.20.30"
+            '''
+          }
       }
     }
+
     stage('Update and Run Sagemaker Pipeline') {
+      agent any
+      environment { 
+        HOME=${env.WORKSPACE}
+      }
       steps {
         withAWS(credentials:"${AWS_CREDENTIAL}",region:"${AWS_REGION}") {
-          sh '''
-          export PATH="$HOME/.jenkins/workspace/$SAGEMAKER_PROJECT_NAME_ID/bin:$PATH"
-          export PYTHONPATH="$HOME/.jenkins/workspace/$SAGEMAKER_PROJECT_NAME_ID:$PYTHONPATH"
-          export PYTHONPATH="${WORKSPACE}:$PYTHONPATH"
-          python pipelines/run_pipeline.py --module-name pipelines.abalone.pipeline \
+          sh '''export PATH="$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/bin:$PATH"
+          export PYTHONPATH="$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID:$PYTHONPATH"
+          run-pipeline --module-name pipelines.abalone.pipeline \
           --role-arn ${SAGEMAKER_PIPELINE_ROLE_ARN} \
           --tags "[{\\"Key\\":\\"sagemaker:project-name\\", \\"Value\\":\\"${SAGEMAKER_PROJECT_NAME}\\"}, {\\"Key\\":\\"sagemaker:project-id\\", \\"Value\\":\\"${SAGEMAKER_PROJECT_ID}\\"}]" \
-          --kwargs "{\\"region\\":\\"${AWS_REGION}\\",\\"sagemaker_project_arn\\":\\"${SAGEMAKER_PROJECT_ARN}\\",\\"role\\":\\"${SAGEMAKER_PIPELINE_ROLE_ARN}\\",\\"default_bucket\\":\\"${ARTIFACT_BUCKET}\\",\\"pipeline_name\\":\\"${SAGEMAKER_PROJECT_NAME_ID}\\",\\"model_package_group_name\\":\\"${SAGEMAKER_PROJECT_NAME_ID}\\",\\"base_job_prefix\\":\\"${SAGEMAKER_PROJECT_NAME_ID}\\"}"
-          '''
+          --kwargs "{\\"region\\":\\"${AWS_REGION}\\",\\"sagemaker_project_arn\\":\\"${SAGEMAKER_PROJECT_ARN}\\",\\"role\\":\\"${SAGEMAKER_PIPELINE_ROLE_ARN}\\",\\"default_bucket\\":\\"${ARTIFACT_BUCKET}\\",\\"pipeline_name\\":\\"${SAGEMAKER_PROJECT_NAME_ID}\\",\\"model_package_group_name\\":\\"${SAGEMAKER_PROJECT_NAME_ID}\\",\\"base_job_prefix\\":\\"${SAGEMAKER_PROJECT_NAME_ID}\\"}"'''
 
           echo "Create/Update of the SageMaker Pipeline and execution completed."
         }
       }
     }
+
+      
+      
+      
   }
   post {
     always {
