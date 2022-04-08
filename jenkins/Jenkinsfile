@@ -31,7 +31,7 @@ pipeline {
     stage('Update and Run Sagemaker Pipeline') {
       agent any
       environment { 
-        HOME=${env.WORKSPACE}
+        HOME="${env.WORKSPACE}"
       }
       steps {
         withAWS(credentials:"${AWS_CREDENTIAL}",region:"${AWS_REGION}") {
