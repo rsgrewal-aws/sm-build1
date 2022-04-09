@@ -25,7 +25,7 @@ pipeline {
             echo "going to run pip install locally"
             pip3 install --target $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID awscli
             echo "going to run setup.py"
-            python setup.py 
+            python setup.py build_scripts
             '''
           }
       }
