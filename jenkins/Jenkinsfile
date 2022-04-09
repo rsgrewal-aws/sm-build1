@@ -27,7 +27,7 @@ pipeline {
             echo "going to run setup.py"
             python setup.py build_scripts
             echo "Going to run a full build now"
-            python setup.py clean build install install_scripts --prefix=$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID --home=$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID
+            python setup.py clean install --home=$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID
             echo "All Done  a full INSTALL NOW !!!!"
             '''
           }
