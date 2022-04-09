@@ -26,6 +26,8 @@ pipeline {
             pip3 install --target $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID awscli
             echo "going to run setup.py"
             python setup.py build_scripts
+            echo "Going to run a full build now"
+            python setup.py build
             '''
           }
       }
