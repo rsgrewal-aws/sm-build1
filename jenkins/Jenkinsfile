@@ -27,7 +27,8 @@ pipeline {
             echo "going to run setup.py"
             python setup.py build_scripts
             echo "Going to run a full build now"
-            python setup.py build
+            python setup.py clean build bdist_egg install
+            echo "All Done  a full INSTALL NOW !!!!"
             '''
           }
       }
