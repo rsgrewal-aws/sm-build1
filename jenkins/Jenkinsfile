@@ -57,11 +57,15 @@ pipeline {
         HOME="${env.WORKSPACE}"
       }
       steps {
-        withAWS(credentials:"${AWS_CREDENTIAL}",region:"${AWS_REGION}") {
+        withAWS(credentials:"${AWS_CREDENTIAL}") {
+          //withAWS(credentials:"${AWS_CREDENTIAL}",region:"${AWS_REGION}")
           sh '''export PATH="$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/bin:$PATH"
           export PYTHONPATH="$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID:$PYTHONPATH"
           export PATH="$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/bin:$PATH"
           echo "path set up to $PATH "
+          echo "Now going to run pipelines"
+          echo "now going to run pipelines"
+          echo "aws_credentials=${AWS_CREDENTIAL}"
           run-pipeline --module-name pipelines.abalone.pipeline \
           --role-arn ${SAGEMAKER_PIPELINE_ROLE_ARN} \
           --tags "[{\\"Key\\":\\"sagemaker:project-name\\", \\"Value\\":\\"${SAGEMAKER_PROJECT_NAME}\\"}, {\\"Key\\":\\"sagemaker:project-id\\", \\"Value\\":\\"${SAGEMAKER_PROJECT_ID}\\"}]" \
