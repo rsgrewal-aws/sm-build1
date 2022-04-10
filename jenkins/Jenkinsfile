@@ -36,9 +36,9 @@ pipeline {
             echo " Finally:after:all:python_path sets pythonpath=$PYTHONPATH "
             echo "Try Pip Install again but in sequence"
             
-            pip3 install --target ${env.WORKSPACE}/.local/$SAGEMAKER_PROJECT_NAME_ID numpy
-            pip3 install --target ${env.WORKSPACE}/.local/$SAGEMAKER_PROJECT_NAME_ID pandas
-            pip3 install --target ${env.WORKSPACE}/.local/$SAGEMAKER_PROJECT_NAME_ID sagemaker
+            pip3 install --target '${env.WORKSPACE}/.local/$SAGEMAKER_PROJECT_NAME_ID' numpy
+            pip3 install --target '${env.WORKSPACE}/.local/$SAGEMAKER_PROJECT_NAME_ID' pandas
+            pip3 install --target '${env.WORKSPACE}/.local/$SAGEMAKER_PROJECT_NAME_ID' sagemaker
             
             #export PATH=/usr/local/anaconda3/bin:$PATH 
             #eval "$(conda shell.bash hook)"
