@@ -36,9 +36,13 @@ pipeline {
             echo " Finally:after:all:python_path sets pythonpath=$PYTHONPATH "
             echo "Now we set virtual environment "
             
-            python3 -m venv $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/venv 
-            source $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/venv/bin/activate
-            pip3 install --only-binary=:all: -r requirements.txt 
+            #python3 -m venv $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/venv 
+            #source $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/venv/bin/activate
+            #pip3 install --only-binary=:all: -r requirements.txt 
+            
+            export PATH=/usr/local/anaconda3/bin:$PATH 
+            eval "$(conda shell.bash hook)"
+            conda activate /Users/rsgrewal/Documents/aws/software/conda/sagemaker
             python3 setup.py install --prefix='$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID'
             
             echo "All Done  a full INSTALL NOW !!!!"
