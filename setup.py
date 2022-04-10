@@ -38,7 +38,7 @@ setuptools.setup(
     license=about["__license__"],
     packages=setuptools.find_packages(),
     include_package_data=True,
-    python_requires=">=3.6",
+    python_requires=">=3.7",
     install_requires=required_packages,
     extras_require=extras,
     entry_points={
