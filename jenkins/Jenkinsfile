@@ -23,8 +23,8 @@ pipeline {
             echo "Env Variable SAGEMAKER_PIPELINE_ROLE_ARN is $SAGEMAKER_PIPELINE_ROLE_ARN"
             echo "Env variable ARTIFACT_BUCKET is $ARTIFACT_BUCKET"
             echo "going to run pip install locally"
-            pip3 install --target $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID awscli
-            pip3 install --target $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID sagemaker
+            pip3 install --target $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID awscli --install-option="--no-compile"
+            pip3 install --target $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID sagemaker --install-option="--no-compile"
             echo "going to run setup.py"
             python setup.py build_scripts
             echo "Going to run a full build now"
@@ -33,7 +33,8 @@ pipeline {
             export PYTHONPATH="${PYTHONPATH}:$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/lib/python2.7/site-packages/"
             export PYTHONPATH="${PYTHONPATH}:$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/lib/python3.8/site-packages/"
             echo " Finally:after:all:python_path sets pythonpath=$PYTHONPATH "
-            python3 setup.py install --install-base=$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID
+            
+            python3 setup.py install --install-option="--prefix='$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID' --install-option="--no-compile"
             echo "All Done  a full INSTALL NOW !!!!"
             '''
           }
