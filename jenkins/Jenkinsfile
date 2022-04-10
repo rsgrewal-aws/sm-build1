@@ -34,15 +34,16 @@ pipeline {
             export PYTHONPATH="${PYTHONPATH}:$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/lib/python2.7/site-packages/"
             export PYTHONPATH="${PYTHONPATH}:$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/lib/python3.8/site-packages/"
             echo " Finally:after:all:python_path sets pythonpath=$PYTHONPATH "
-            echo "Now we set virtual environment "
+            echo "Try Pip Install again but in sequence"
             
-            #python3 -m venv $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/venv 
-            #source $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/venv/bin/activate
-            #pip3 install --only-binary=:all: -r requirements.txt 
+            pip3 install --target ${env.WORKSPACE}/.local/$SAGEMAKER_PROJECT_NAME_ID numpy
+            pip3 install --target ${env.WORKSPACE}/.local/$SAGEMAKER_PROJECT_NAME_ID pandas
+            pip3 install --target ${env.WORKSPACE}/.local/$SAGEMAKER_PROJECT_NAME_ID sagemaker
             
-            export PATH=/usr/local/anaconda3/bin:$PATH 
-            eval "$(conda shell.bash hook)"
-            conda activate /Users/rsgrewal/Documents/aws/software/conda/sagemaker
+            #export PATH=/usr/local/anaconda3/bin:$PATH 
+            #eval "$(conda shell.bash hook)"
+            #conda activate /Users/rsgrewal/Documents/aws/software/conda/sagemaker
+            
             python3 setup.py install --prefix='$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID'
             
             echo "All Done  a full INSTALL NOW !!!!"
@@ -57,7 +58,7 @@ pipeline {
         HOME="${env.WORKSPACE}"
       }
       steps {
-        withAWS(credentials:"${AWS_CREDENTIAL}") {
+        withAWS(region: 'us-east-1', credentials: '${AWS_CREDENTIAL}') {
           //withAWS(credentials:"${AWS_CREDENTIAL}",region:"${AWS_REGION}")
           sh '''export PATH="$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/bin:$PATH"
           export PYTHONPATH="$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID:$PYTHONPATH"
