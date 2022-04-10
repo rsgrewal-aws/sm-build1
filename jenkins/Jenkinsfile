@@ -35,7 +35,8 @@ pipeline {
             export PYTHONPATH="${PYTHONPATH}:$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/lib/python3.8/site-packages/"
             echo " Finally:after:all:python_path sets pythonpath=$PYTHONPATH "
 
-            python3 setup.py install --user
+            python3 setup.py install --install-base='$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID'
+            
             echo "All Done  a full INSTALL NOW !!!!"
             '''
           }
