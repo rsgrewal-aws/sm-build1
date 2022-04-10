@@ -38,7 +38,7 @@ pipeline {
             
             python3 -m venv $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/venv 
             source $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/venv/bin/activate
-            pip3 install --user -r requirements.txt
+            pip3 install -r requirements.txt
             python3 setup.py install --prefix='$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID'
             
             echo "All Done  a full INSTALL NOW !!!!"
