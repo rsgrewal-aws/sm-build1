@@ -59,13 +59,20 @@ pipeline {
         HOME="${env.WORKSPACE}"
       }
       steps {
-          //withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'JENKINS_AWS_CREDENTIALS', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
-          withAWS(credentials: 'AWS-CREDENTIAL', region: 'us-east-1') {
+          withCredentials([usernamePassword(credentialsId: 'JENKINS-ACCT3-PASSSTYLE', passwordVariable: 'secretKey', usernameVariable: 'accessKey')]){
+          //withAWS(credentials: 'AWS-CREDENTIAL', region: 'us-east-1') {
 
           sh '''export PATH="$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/bin:$PATH"
           export PYTHONPATH="$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID:$PYTHONPATH"
           export PATH="$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/bin:$PATH"
           echo "path set up to $PATH "
+          export aws_access_key_id=$accessKey
+          export aws_secret_access_key=$secretKey
+          export aws_region=us-east-1
+          aws configure set aws_access_key_id $accessKey
+          aws configure set aws_secret_access_key $secretKey
+          aws configure set default.region us-east-1
+          
           echo "Now going to run pipelines"
           echo "now going to run pipelines"
           echo "Before run pipeline::aws_credentials=${AWS-CREDENTIALS}"
