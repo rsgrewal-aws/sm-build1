@@ -60,7 +60,7 @@ pipeline {
       }
       steps {
           //withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'JENKINS_AWS_CREDENTIALS', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
-          withAWS(credentials: 'JENKINS_AWS_CREDENTIALS', region: 'us-east-1') {
+          withAWS(credentials: 'AWS-CREDENTIALS', region: 'us-east-1') {
 
           sh '''export PATH="$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/bin:$PATH"
           export PYTHONPATH="$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID:$PYTHONPATH"
