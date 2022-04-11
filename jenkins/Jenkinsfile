@@ -58,7 +58,7 @@ pipeline {
         HOME="${env.WORKSPACE}"
       }
       steps {
-        withAWS(region: 'us-east-1', credentials: '${Jenkins-acct-passwordstyle}') {
+        withAWS(region: 'us-east-1', credentials: '${JENKINS-ACCT3-PASSSTYLE}') {
           //withAWS(credentials:"${AWS_CREDENTIAL}",region:"${AWS_REGION}")
           sh '''export PATH="$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/bin:$PATH"
           export PYTHONPATH="$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID:$PYTHONPATH"
@@ -66,7 +66,7 @@ pipeline {
           echo "path set up to $PATH "
           echo "Now going to run pipelines"
           echo "now going to run pipelines"
-          echo "aws_credentials=${AWS_CREDENTIAL}"
+          echo "Before run pipeline::aws_credentials=${JENKINS-ACCT3-PASSSTYLE}"
           run-pipeline --module-name pipelines.abalone.pipeline \
           --role-arn ${SAGEMAKER_PIPELINE_ROLE_ARN} \
           --tags "[{\\"Key\\":\\"sagemaker:project-name\\", \\"Value\\":\\"${SAGEMAKER_PROJECT_NAME}\\"}, {\\"Key\\":\\"sagemaker:project-id\\", \\"Value\\":\\"${SAGEMAKER_PROJECT_ID}\\"}]" \
