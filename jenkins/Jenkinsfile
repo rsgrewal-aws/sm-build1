@@ -59,7 +59,7 @@ pipeline {
         HOME="${env.WORKSPACE}"
       }
       steps {
-        withAWS(region: 'us-east-1', credentials: '${JENKINS-ACCT3-PASSSTYLE}') {
+        withAWS(region: 'us-east-1', credentials: 'JENKINS-ACCT3-PASSSTYLE') {
           //withAWS(credentials:"${AWS_CREDENTIAL}",region:"${AWS_REGION}")
           sh '''export PATH="$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/bin:$PATH"
           export PYTHONPATH="$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID:$PYTHONPATH"
