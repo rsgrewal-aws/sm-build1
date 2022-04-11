@@ -36,13 +36,14 @@ pipeline {
             echo " Finally:after:all:python_path sets pythonpath=$PYTHONPATH "
             echo "Try Pip Install again but in sequence"
             
-            #pip3 install numpy
-            #pip3 install pandas
-            #pip3 install sagemaker
+            pip3 install --upgrade pip setuptools wheel
+            pip3 install numpy --target $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID
+            pip3 install pandas --target $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID
+            pip3 install sagemaker --target $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID
             
-            export PATH=/usr/local/anaconda3/bin:$PATH 
-            eval "$(conda shell.bash hook)"
-            conda activate /Users/rsgrewal/Documents/aws/software/conda/sagemaker
+            #export PATH=/usr/local/anaconda3/bin:$PATH 
+            #eval "$(conda shell.bash hook)"
+            #conda activate /Users/rsgrewal/Documents/aws/software/conda/sagemaker
             
             python3 setup.py install --prefix='$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID'
             
