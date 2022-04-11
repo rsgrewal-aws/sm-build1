@@ -72,6 +72,7 @@ pipeline {
           aws configure set aws_access_key_id $accessKey
           aws configure set aws_secret_access_key $secretKey
           aws configure set default.region us-east-1
+          echo "access key=$accessKey"
           
           echo "Now going to run pipelines"
           echo "now going to run pipelines"
