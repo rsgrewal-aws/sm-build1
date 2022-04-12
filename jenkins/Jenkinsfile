@@ -38,7 +38,7 @@ pipeline {
             echo "Try Pip Install again but in sequence"
             
             pip3 install --upgrade pip setuptools wheel
-            pip3 install numpy --target $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID
+            pip3 install numpy --upgrade --target $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID
             pip3 install pandas --target $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID
             pip3 install sagemaker --target $HOME/.local/$SAGEMAKER_PROJECT_NAME_ID
             
