@@ -33,6 +33,7 @@ pipeline {
             export PYTHONPATH="${PYTHONPATH}:$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/lib/python3.7/site-packages/"
             export PYTHONPATH="${PYTHONPATH}:$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/lib/python2.7/site-packages/"
             export PYTHONPATH="${PYTHONPATH}:$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/lib/python3.8/site-packages/"
+            export PYTHONPATH="${PYTHONPATH}:$HOME/.local/$SAGEMAKER_PROJECT_NAME_ID/lib/python3.9/site-packages/"
             echo " Finally:after:all:python_path sets pythonpath=$PYTHONPATH "
             echo "Try Pip Install again but in sequence"
             
