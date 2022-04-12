@@ -203,7 +203,7 @@
                               "min_child_weight": "6",
                               "subsample": "0.7",
                               "silent": "0",
-                              "sagemaker_submit_directory": "\"s3://sagemaker-grewaltempl/pipeline/model/xgbtrain/code/TrainTweetsModelPipe/tweets-pipeline-2022-04-12-16-44-26-176/source/sourcedir.tar.gz\"",
+                              "sagemaker_submit_directory": "\"s3://sagemaker-grewaltempl/pipeline/model/xgbtrain/code/TrainTweetsModelPipe/tweets-pipeline-2022-04-12-20-53-15-969/source/sourcedir.tar.gz\"",
                               "sagemaker_program": "\"modeltrain.py\"",
                               "sagemaker_container_log_level": "20",
                               "sagemaker_region": "\"us-east-1\""
@@ -215,7 +215,7 @@
                         },
                         "ProfilerRuleConfigurations": [
                               {
-                                    "RuleConfigurationName": "ProfilerReport-1649781866",
+                                    "RuleConfigurationName": "ProfilerReport-1649796796",
                                     "RuleEvaluatorImage": "503895931360.dkr.ecr.us-east-1.amazonaws.com/sagemaker-debugger-rules:latest",
                                     "RuleParameters": {
                                           "rule_to_invoke": "ProfilerReport"
@@ -285,7 +285,7 @@
                                     "InputName": "code",
                                     "AppManaged": false,
                                     "S3Input": {
-                                          "S3Uri": "s3://sagemaker-grewaltempl/script-tweets-eval/tweets-pipeline-2022-04-12-16-44-16-081/source/sourcedir.tar.gz",
+                                          "S3Uri": "s3://sagemaker-grewaltempl/script-tweets-eval/tweets-pipeline-2022-04-12-18-21-21-847/source/sourcedir.tar.gz",
                                           "LocalPath": "/opt/ml/processing/input/code/",
                                           "S3DataType": "S3Prefix",
                                           "S3InputMode": "File",
@@ -297,7 +297,7 @@
                                     "InputName": "entrypoint",
                                     "AppManaged": false,
                                     "S3Input": {
-                                          "S3Uri": "s3://sagemaker-grewaltempl/script-tweets-eval/tweets-pipeline-2022-04-12-16-44-16-081/source/runproc.sh",
+                                          "S3Uri": "s3://sagemaker-grewaltempl/script-tweets-eval/tweets-pipeline-2022-04-12-18-21-21-847/source/runproc.sh",
                                           "LocalPath": "/opt/ml/processing/input/entrypoint",
                                           "S3DataType": "S3Prefix",
                                           "S3InputMode": "File",
@@ -312,7 +312,7 @@
                                           "OutputName": "evaluation",
                                           "AppManaged": false,
                                           "S3Output": {
-                                                "S3Uri": "s3://sagemaker-grewaltempl/script-tweets-eval/tweets-pipeline-2022-04-12-16-44-20-089/output/evaluation",
+                                                "S3Uri": "s3://sagemaker-grewaltempl/script-tweets-eval/tweets-pipeline-2022-04-12-18-21-24-689/output/evaluation",
                                                 "LocalPath": "/opt/ml/processing/evaluation",
                                                 "S3UploadMode": "EndOfJob"
                                           }
@@ -352,11 +352,22 @@
                                     "Type": "RegisterModel",
                                     "Arguments": {
                                           "ModelPackageGroupName": "TweetsModelPackageGroup-Example1",
+                                          "ModelPackageDescription": "Test-Description",
+                                          "Tags": [
+                                                {
+                                                      "Key": "sagemaker:deployment-stage",
+                                                      "Value": "test-stage"
+                                                },
+                                                {
+                                                      "Key": "sagemaker:short-description",
+                                                      "Value": "test-describe"
+                                                }
+                                          ],
                                           "ModelMetrics": {
                                                 "ModelQuality": {
                                                       "Statistics": {
                                                             "ContentType": "application/json",
-                                                            "S3Uri": "s3://sagemaker-grewaltempl/script-tweets-eval/tweets-pipeline-2022-04-12-16-44-20-089/output/evaluation/evaluation.json"
+                                                            "S3Uri": "s3://sagemaker-grewaltempl/script-tweets-eval/tweets-pipeline-2022-04-12-18-21-24-689/output/evaluation/evaluation.json"
                                                       }
                                                 },
                                                 "Bias": {},
@@ -388,7 +399,8 @@
                                           "ModelApprovalStatus": {
                                                 "Get": "Parameters.ModelApprovalStatus"
                                           }
-                                    }
+                                    },
+                                    "Description": "Test-Description"
                               }
                         ],
                         "ElseSteps": []
