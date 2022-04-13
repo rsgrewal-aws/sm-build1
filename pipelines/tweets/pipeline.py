@@ -369,7 +369,11 @@ def get_pipeline(
                 content_type="application/json"
             )
     )
-
+    model_tags = [
+        {'Key': 'sagemaker:deployment-stage', 'Value': 'prod'},
+        {'Key': 'sagemaker:short-description', 'Value': 'test-describe'},
+        {'Key': 'sagemaker:project-name', 'Value': 'test-name'},
+    ]
     step_register = RegisterModel(
             name="RegisterTweetsModel",
             estimator=xgb_custom_estimator,
@@ -381,6 +385,8 @@ def get_pipeline(
             model_package_group_name=model_package_group_name,
             approval_status=model_approval_status,
             model_metrics=model_metrics,
+            tags=model_tags,
+            description="Test-Description",
     )
 
 
