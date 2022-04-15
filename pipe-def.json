@@ -203,7 +203,7 @@
                               "min_child_weight": "6",
                               "subsample": "0.7",
                               "silent": "0",
-                              "sagemaker_submit_directory": "\"s3://sagemaker-grewaltempl/pipeline/model/xgbtrain/code/TrainTweetsModelPipe/tweets-pipeline-2022-04-12-21-42-54-436/source/sourcedir.tar.gz\"",
+                              "sagemaker_submit_directory": "\"s3://sagemaker-grewaltempl/pipeline/model/xgbtrain/code/TrainTweetsModelPipe/tweets-pipeline-2022-04-12-22-10-53-705/source/sourcedir.tar.gz\"",
                               "sagemaker_program": "\"modeltrain.py\"",
                               "sagemaker_container_log_level": "20",
                               "sagemaker_region": "\"us-east-1\""
@@ -215,7 +215,7 @@
                         },
                         "ProfilerRuleConfigurations": [
                               {
-                                    "RuleConfigurationName": "ProfilerReport-1649799774",
+                                    "RuleConfigurationName": "ProfilerReport-1649801453",
                                     "RuleEvaluatorImage": "503895931360.dkr.ecr.us-east-1.amazonaws.com/sagemaker-debugger-rules:latest",
                                     "RuleParameters": {
                                           "rule_to_invoke": "ProfilerReport"
@@ -364,7 +364,11 @@
                                                 },
                                                 {
                                                       "Key": "sagemaker:project-name",
-                                                      "Value": "test-name"
+                                                      "Value": "smgithub2"
+                                                },
+                                                {
+                                                      "Key": "sagemaker:stage",
+                                                      "Value": "test-stage"
                                                 }
                                           ],
                                           "ModelMetrics": {

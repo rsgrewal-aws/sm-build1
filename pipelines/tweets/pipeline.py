@@ -374,10 +374,32 @@ def get_pipeline(
         {'Key': 'sagemaker:short-description', 'Value': 'test-describe'},
         {'Key': 'sagemaker:project-name', 'Value': 'test-name'},
     ]
+    ##  -----  TESTING Create Model froma pre ptrained and use that to host ---- ###
+    # -- THIS MODEL has been trained in SM but different package and all  
+    pretrained_s3="s3://sagemaker-grewaltempl/pipeline/model/xgbtrain/modeltweet/pipelines-vqlln8kv20ti-TrainTweetsStep-EG5BCPA1eB/output/model.tar.gz"
+    xgboost_model = XGBoostModel(
+        #model_data=step_train.properties.ModelArtifacts.S3ModelArtifacts,
+        model_data=pretrained_s3 
+        entry_point='inference.py',
+        source_dir='xgboost_source_dir/',
+        #code_location=f"s3://{sagemaker_session.default_bucket()}/imlabs/pipeline/model/pipe_tweets/{base_job_prefix}",
+        framework_version='1.3-1',
+        py_version='py3',
+        sagemaker_session=sagemaker_session,
+        role=role
+    )
+    step_create_xgboost_model = CreateModelStep(
+        name="XGBoostFromSavedModel",
+        model=xgboost_model,
+        inputs=sagemaker.inputs.CreateModelInput(instance_type="ml.m4.large"),
+    )    
+
+    
     step_register = RegisterModel(
             name="RegisterTweetsModel",
-            estimator=xgb_custom_estimator,
-            model_data=step_train.properties.ModelArtifacts.S3ModelArtifacts,
+            #estimator=xgb_custom_estimator,
+            #model_data=step_train.properties.ModelArtifacts.S3ModelArtifacts,
+            model=xgboost_model,
             content_types=["text/csv"],
             response_types=["text/csv"],
             inference_instances=["ml.t2.medium", "ml.m5.large"],
@@ -422,7 +444,7 @@ def get_pipeline(
                 model_approval_status,
                 input_data,
             ],
-            steps=[step_process, step_train, step_eval, step_cond_register ],
+            steps=[step_process, step_train, step_create_xgboost_model,step_eval, step_cond_register ],
             sagemaker_session=sm_session,
     )
     print(f"Finally Pipeline created={pipeline}:")
