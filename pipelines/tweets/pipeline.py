@@ -386,7 +386,7 @@ def get_pipeline(
         #model_data=step_train.properties.ModelArtifacts.S3ModelArtifacts,
         model_data=pretrained_s3, 
         entry_point='inference.py',
-        source_dir=os.path.join(BASE_DIR,  'xgboost_source_dir')
+        source_dir=os.path.join(BASE_DIR,  'xgboost_source_dir'),
         #code_location=f"s3://{sagemaker_session.default_bucket()}/imlabs/pipeline/model/pipe_tweets/{base_job_prefix}",
         framework_version='1.3-1',
         py_version='py3',
