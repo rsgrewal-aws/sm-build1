@@ -22,7 +22,7 @@ logger.addHandler(logging.StreamHandler())
 #####  that will solve the problem 
 
 if __name__ == "__main__":
-    logger.info("Evaluation:Starting evaluation. Wioth DMATRIX as Test ")
+    logger.info("Evaluation:Starting evaluation. Wioth DMATRIX as Test:: ")
     logger.info(f"Evaluation:xgboost:version={xgb.__version__}:")
     model_path = "/opt/ml/processing/model/model.tar.gz"
     with tarfile.open(model_path) as tar:
