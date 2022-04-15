@@ -403,9 +403,9 @@ def get_pipeline(
     
     step_register = RegisterModel(
             name="RegisterTweetsModel",
-            #estimator=xgb_custom_estimator,
-            #model_data=step_train.properties.ModelArtifacts.S3ModelArtifacts,
-            model=xgboost_model,
+            estimator=xgb_custom_estimator,
+            model_data=step_train.properties.ModelArtifacts.S3ModelArtifacts,
+            #model=xgboost_model,
             content_types=["text/csv"],
             response_types=["text/csv"],
             inference_instances=["ml.t2.medium", "ml.m5.large"],
