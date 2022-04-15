@@ -390,7 +390,7 @@ def get_pipeline(
         #code_location=f"s3://{sagemaker_session.default_bucket()}/imlabs/pipeline/model/pipe_tweets/{base_job_prefix}",
         framework_version='1.3-1',
         py_version='py3',
-        sagemaker_session=sagemaker_session,
+        sagemaker_session=sm_session,
         role=role
     )
     step_create_xgboost_model = CreateModelStep(
