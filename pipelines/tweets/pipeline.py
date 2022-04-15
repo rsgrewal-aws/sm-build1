@@ -39,6 +39,11 @@ from sagemaker.workflow.conditions import (
     ConditionGreaterThanOrEqualTo,
 )
 
+from sagemaker.sklearn import SKLearnModel
+from sagemaker.xgboost import XGBoostModel
+from sagemaker.model import Model
+
+from sagemaker.workflow.steps import CreateModelStep
 
 
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -379,7 +384,7 @@ def get_pipeline(
     pretrained_s3="s3://sagemaker-grewaltempl/pipeline/model/xgbtrain/modeltweet/pipelines-vqlln8kv20ti-TrainTweetsStep-EG5BCPA1eB/output/model.tar.gz"
     xgboost_model = XGBoostModel(
         #model_data=step_train.properties.ModelArtifacts.S3ModelArtifacts,
-        model_data=pretrained_s3 
+        model_data=pretrained_s3, 
         entry_point='inference.py',
         source_dir='xgboost_source_dir/',
         #code_location=f"s3://{sagemaker_session.default_bucket()}/imlabs/pipeline/model/pipe_tweets/{base_job_prefix}",
@@ -394,6 +399,7 @@ def get_pipeline(
         inputs=sagemaker.inputs.CreateModelInput(instance_type="ml.m4.large"),
     )    
 
+    ##  ------  END TESTING PRE TRAINED MODEL ----------------------------------##
     
     step_register = RegisterModel(
             name="RegisterTweetsModel",

@@ -203,7 +203,7 @@
                               "min_child_weight": "6",
                               "subsample": "0.7",
                               "silent": "0",
-                              "sagemaker_submit_directory": "\"s3://sagemaker-grewaltempl/pipeline/model/xgbtrain/code/TrainTweetsModelPipe/tweets-pipeline-2022-04-12-22-10-53-705/source/sourcedir.tar.gz\"",
+                              "sagemaker_submit_directory": "\"s3://sagemaker-grewaltempl/pipeline/model/xgbtrain/code/TrainTweetsModelPipe/tweets-pipeline-2022-04-14-19-46-12-820/source/sourcedir.tar.gz\"",
                               "sagemaker_program": "\"modeltrain.py\"",
                               "sagemaker_container_log_level": "20",
                               "sagemaker_region": "\"us-east-1\""
@@ -215,7 +215,7 @@
                         },
                         "ProfilerRuleConfigurations": [
                               {
-                                    "RuleConfigurationName": "ProfilerReport-1649801453",
+                                    "RuleConfigurationName": "ProfilerReport-1649965572",
                                     "RuleEvaluatorImage": "503895931360.dkr.ecr.us-east-1.amazonaws.com/sagemaker-debugger-rules:latest",
                                     "RuleParameters": {
                                           "rule_to_invoke": "ProfilerReport"
@@ -285,7 +285,7 @@
                                     "InputName": "code",
                                     "AppManaged": false,
                                     "S3Input": {
-                                          "S3Uri": "s3://sagemaker-grewaltempl/artifact-tweets-eval/tweets-pipeline-2022-04-12-21-42-28-128/source/sourcedir.tar.gz",
+                                          "S3Uri": "s3://sagemaker-grewaltempl/artifact-tweets-eval/tweets-pipeline-2022-04-14-19-46-08-170/source/sourcedir.tar.gz",
                                           "LocalPath": "/opt/ml/processing/input/code/",
                                           "S3DataType": "S3Prefix",
                                           "S3InputMode": "File",
@@ -297,7 +297,7 @@
                                     "InputName": "entrypoint",
                                     "AppManaged": false,
                                     "S3Input": {
-                                          "S3Uri": "s3://sagemaker-grewaltempl/artifact-tweets-eval/tweets-pipeline-2022-04-12-21-42-28-128/source/runproc.sh",
+                                          "S3Uri": "s3://sagemaker-grewaltempl/artifact-tweets-eval/tweets-pipeline-2022-04-14-19-46-08-170/source/runproc.sh",
                                           "LocalPath": "/opt/ml/processing/input/entrypoint",
                                           "S3DataType": "S3Prefix",
                                           "S3InputMode": "File",
@@ -312,7 +312,7 @@
                                           "OutputName": "evaluation",
                                           "AppManaged": false,
                                           "S3Output": {
-                                                "S3Uri": "s3://sagemaker-grewaltempl/artifact-tweets-eval/tweets-pipeline-2022-04-12-21-42-29-655/output/evaluation",
+                                                "S3Uri": "s3://sagemaker-grewaltempl/artifact-tweets-eval/tweets-pipeline-2022-04-14-19-46-09-746/output/evaluation",
                                                 "LocalPath": "/opt/ml/processing/evaluation",
                                                 "S3UploadMode": "EndOfJob"
                                           }
@@ -375,7 +375,7 @@
                                                 "ModelQuality": {
                                                       "Statistics": {
                                                             "ContentType": "application/json",
-                                                            "S3Uri": "s3://sagemaker-grewaltempl/artifact-tweets-eval/tweets-pipeline-2022-04-12-21-42-29-655/output/evaluation/evaluation.json"
+                                                            "S3Uri": "s3://sagemaker-grewaltempl/artifact-tweets-eval/tweets-pipeline-2022-04-14-19-46-09-746/output/evaluation/evaluation.json"
                                                       }
                                                 },
                                                 "Bias": {},
