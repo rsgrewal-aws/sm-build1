@@ -450,7 +450,7 @@ def get_pipeline(
                 model_approval_status,
                 input_data,
             ],
-            steps=[step_process, step_train, step_create_xgboost_model,step_eval, step_cond_register ],
+            steps=[step_process, step_train, step_eval, step_cond_register ],
             sagemaker_session=sm_session,
     )
     print(f"Finally Pipeline created={pipeline}:")
