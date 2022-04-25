@@ -17,11 +17,15 @@ from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 
+import pickle as pkl
+
 _logger = logging.getLogger()
 _logger.setLevel(logging.INFO)
 _logger.addHandler(logging.StreamHandler())
 
+
 try:
+    _logger.info(f"Pkl:version:={pkl.format_version}")
     _logger.info(f"Pandas:version:{pd.__version__}")
     _logger.info(f"Numpy:version:{np.__version__}")
     import xgboost as xgb
@@ -80,7 +84,13 @@ def vectorizerText(textArray):
     # tokenize and build vocab
     vectorizer.fit(textArray)
     return vectorizer
-       
+
+def saveVectorizerToS3(vectorz=None, localFullPath="/opt/ml/processing/evalproperty/vectorizerBody.pkl") :
+    pkl.dump(vectorz, open(localFullPath, "wb"))
+    _logger.info(f"Vectorizer:saved!!:to:local:path={localFullPath}::name={vectorz}::This will be moved to the eval:location:")
+    
+    
+    
 if __name__ == "__main__":
     _logger.info("Starting preprocessing.")
     parser = argparse.ArgumentParser()
@@ -95,6 +105,10 @@ if __name__ == "__main__":
     BASE_DIR = "/opt/ml/processing"
     pathlib.Path(f"{BASE_DIR}/data").mkdir(parents=True, exist_ok=True)
     _logger.info(f"Download:data:from:s3:to:local:location:={BASE_DIR}/data::")
+    
+    eval_dir = "/opt/ml/processing/evalproperty"
+    pathlib.Path(eval_dir).mkdir(parents=True, exist_ok=True)
+    _logger.info(f"eval_dir={eval_dir}:sucessfully created for saving the vectorizers")
     
     print(input_data)
     _logger.info(f"Input:data:={input_data}::")
@@ -146,6 +160,7 @@ if __name__ == "__main__":
     # -- vectorize the text 
     #df_multi = df_multi[1:] # remove the header row 
     vectorizer = vectorizerText(df_multi.body)
+    saveVectorizerToS3(vectorizer, f"{eval_dir}/vectorizerBody.pkl")
     df_multi['vec_text'] = df_multi.body.apply(lambda x: textToVectors(x,vectorizer ))
     df_multi = df_multi.drop(['body'], axis=1)
     _logger.info(f"After:Vectorization:columns={len(df_multi.columns)}::describe={df_multi.describe()}::")
